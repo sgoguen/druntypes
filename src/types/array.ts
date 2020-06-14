@@ -1,11 +1,12 @@
-import { Runtype, Static, create, innerValidate } from '../runtype';
+import { Runtype, Static, create, innerValidate } from "../runtype.ts";
 
 type ArrayStaticType<E extends Runtype, RO extends boolean> = RO extends true
   ? ReadonlyArray<Static<E>>
   : Static<E>[];
 
-interface Arr<E extends Runtype, RO extends boolean> extends Runtype<ArrayStaticType<E, RO>> {
-  tag: 'array';
+interface Arr<E extends Runtype, RO extends boolean>
+  extends Runtype<ArrayStaticType<E, RO>> {
+  tag: "array";
   element: E;
   isReadonly: RO;
 
@@ -35,14 +36,16 @@ function InternalArr<E extends Runtype, RO extends boolean>(
             return {
               success: false,
               message: validated.message,
-              key: validated.key ? `[${xs.indexOf(x)}].${validated.key}` : `[${xs.indexOf(x)}]`,
+              key: validated.key
+                ? `[${xs.indexOf(x)}].${validated.key}`
+                : `[${xs.indexOf(x)}]`,
             };
           }
         }
 
         return { success: true, value: xs };
       },
-      { tag: 'array', isReadonly, element },
+      { tag: "array", isReadonly, element },
     ),
   );
 }
@@ -51,7 +54,9 @@ function Arr<E extends Runtype, RO extends boolean>(element: E): Arr<E, false> {
   return InternalArr(element, false);
 }
 
-function withExtraModifierFuncs<E extends Runtype, RO extends boolean>(A: any): Arr<E, RO> {
+function withExtraModifierFuncs<E extends Runtype, RO extends boolean>(
+  A: any,
+): Arr<E, RO> {
   A.asReadonly = asReadonly;
 
   return A;

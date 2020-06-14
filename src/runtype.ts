@@ -7,10 +7,10 @@ import {
   Constraint,
   ConstraintCheck,
   Brand,
-} from './index';
-import { Reflect } from './reflect';
-import show from './show';
-import { ValidationError } from './errors';
+} from "./index.ts";
+import { Reflect } from "./reflect.ts";
+import show from "./show.ts";
+import { ValidationError } from "./errors.ts";
 
 /**
  * A runtype determines at runtime whether a value conforms to a type specification.
@@ -103,7 +103,7 @@ export interface Runtype<A = unknown> {
 /**
  * Obtains the static type associated with a Runtype.
  */
-export type Static<A extends Runtype> = A['_falseWitness'];
+export type Static<A extends Runtype> = A["_falseWitness"];
 
 export function create<A extends Runtype>(
   validate: (x: any, visited: VisitedState) => Result<Static<A>>,
@@ -181,11 +181,13 @@ function VisitedState(): VisitedState {
   const members: WeakMap<object, WeakMap<Runtype, true>> = new WeakMap();
 
   const add = (candidate: object, type: Runtype) => {
-    if (candidate === null || !(typeof candidate === 'object')) return;
+    if (candidate === null || !(typeof candidate === "object")) return;
     const typeSet = members.get(candidate);
     members.set(
       candidate,
-      typeSet ? typeSet.set(type, true) : (new WeakMap() as WeakMap<Runtype, true>).set(type, true),
+      typeSet
+        ? typeSet.set(type, true)
+        : (new WeakMap() as WeakMap<Runtype, true>).set(type, true),
     );
   };
 

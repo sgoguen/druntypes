@@ -1,5 +1,5 @@
 export class ValidationError extends Error {
-  public name: string = 'ValidationError';
+  public name: string = "ValidationError";
 
   constructor(message: string, public key?: string) {
     super(key ? `${message} in ${key}` : message);

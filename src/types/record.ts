@@ -1,14 +1,14 @@
-import { Runtype, Static, create, innerValidate } from '../runtype';
-import { hasKey } from '../util';
-import show from '../show';
+import { Runtype, Static, create, innerValidate } from "../runtype.ts";
+import { hasKey } from "../util.ts";
+import show from "../show.ts";
 
-type RecordStaticType<O extends { [_: string]: Runtype }, RO extends boolean> = RO extends true
-  ? { readonly [K in keyof O]: Static<O[K]> }
-  : { [K in keyof O]: Static<O[K]> };
+type RecordStaticType<O extends { [_: string]: Runtype }, RO extends boolean> =
+  RO extends true ? { readonly [K in keyof O]: Static<O[K]> }
+    : { [K in keyof O]: Static<O[K]> };
 
 export interface Record<O extends { [_: string]: Runtype }, RO extends boolean>
   extends Runtype<RecordStaticType<O, RO>> {
-  tag: 'record';
+  tag: "record";
   fields: O;
   isReadonly: RO;
 
@@ -18,7 +18,10 @@ export interface Record<O extends { [_: string]: Runtype }, RO extends boolean>
 /**
  * Construct a record runtype from runtypes for its values.
  */
-export function InternalRecord<O extends { [_: string]: Runtype }, RO extends boolean>(
+export function InternalRecord<
+  O extends { [_: string]: Runtype },
+  RO extends boolean,
+>(
   fields: O,
   isReadonly: RO,
 ): Record<O, RO> {
@@ -26,12 +29,22 @@ export function InternalRecord<O extends { [_: string]: Runtype }, RO extends bo
     create(
       (x, visited) => {
         if (x === null || x === undefined) {
-          const a = create<any>(_x => ({ success: true, value: _x }), { tag: 'record', fields });
-          return { success: false, message: `Expected ${show(a)}, but was ${x}` };
+          const a = create<any>(
+            (_x) => ({ success: true, value: _x }),
+            { tag: "record", fields },
+          );
+          return {
+            success: false,
+            message: `Expected ${show(a)}, but was ${x}`,
+          };
         }
 
         for (const key in fields) {
-          let validated = innerValidate(fields[key], hasKey(key, x) ? x[key] : undefined, visited);
+          let validated = innerValidate(
+            fields[key],
+            hasKey(key, x) ? x[key] : undefined,
+            visited,
+          );
           if (!validated.success) {
             return {
               success: false,
@@ -43,16 +56,21 @@ export function InternalRecord<O extends { [_: string]: Runtype }, RO extends bo
 
         return { success: true, value: x };
       },
-      { tag: 'record', isReadonly, fields },
+      { tag: "record", isReadonly, fields },
     ),
   );
 }
 
-export function Record<O extends { [_: string]: Runtype }>(fields: O): Record<O, false> {
+export function Record<O extends { [_: string]: Runtype }>(
+  fields: O,
+): Record<O, false> {
   return InternalRecord(fields, false);
 }
 
-function withExtraModifierFuncs<O extends { [_: string]: Runtype }, RO extends boolean>(
+function withExtraModifierFuncs<
+  O extends { [_: string]: Runtype },
+  RO extends boolean,
+>(
   A: any,
 ): Record<O, RO> {
   A.asReadonly = asReadonly;

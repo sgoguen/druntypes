@@ -1,12 +1,17 @@
-import { Runtype, Static, create } from '../runtype';
-import { String } from './string';
-import { Unknown } from './unknown';
+import { Runtype, Static, create } from "../runtype.ts";
+import { String } from "./string.ts";
+import { Unknown } from "./unknown.ts";
 
-export type ConstraintCheck<A extends Runtype> = (x: Static<A>) => boolean | string;
+export type ConstraintCheck<A extends Runtype> = (
+  x: Static<A>,
+) => boolean | string;
 
-export interface Constraint<A extends Runtype, T extends Static<A> = Static<A>, K = unknown>
-  extends Runtype<T> {
-  tag: 'constraint';
+export interface Constraint<
+  A extends Runtype,
+  T extends Static<A> = Static<A>,
+  K = unknown,
+> extends Runtype<T> {
+  tag: "constraint";
   underlying: A;
   // See: https://github.com/Microsoft/TypeScript/issues/19746 for why this isn't just
   // `constraint: ConstraintCheck<A>`
@@ -15,13 +20,17 @@ export interface Constraint<A extends Runtype, T extends Static<A> = Static<A>, 
   args?: K;
 }
 
-export function Constraint<A extends Runtype, T extends Static<A> = Static<A>, K = unknown>(
+export function Constraint<
+  A extends Runtype,
+  T extends Static<A> = Static<A>,
+  K = unknown,
+>(
   underlying: A,
   constraint: ConstraintCheck<A>,
   options?: { name?: string; args?: K },
 ): Constraint<A, T, K> {
   return create<Constraint<A, T, K>>(
-    value => {
+    (value) => {
       const name = options && options.name;
       const validated = underlying.validate(value);
 
@@ -31,11 +40,16 @@ export function Constraint<A extends Runtype, T extends Static<A> = Static<A>, K
 
       const result = constraint(validated.value);
       if (String.guard(result)) return { success: false, message: result };
-      else if (!result) return { success: false, message: `Failed ${name || 'constraint'} check` };
+      else if (!result) {
+        return {
+          success: false,
+          message: `Failed ${name || "constraint"} check`,
+        };
+      }
       return { success: true, value: validated.value as T };
     },
     {
-      tag: 'constraint',
+      tag: "constraint",
       underlying,
       constraint,
       name: options && options.name,

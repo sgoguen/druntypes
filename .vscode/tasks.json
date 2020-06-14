@@ -10,6 +10,14 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "run",
+      "type": "shell",
+      "command": "deno test --allow-read --allow-write",
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
     }
   ]
 }

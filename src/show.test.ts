@@ -1,3 +1,4 @@
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import {
   Unknown,
   Never,
@@ -20,8 +21,8 @@ import {
   Lazy,
   InstanceOf,
   Reflect,
-} from '.';
-import show from './show';
+} from './index.ts';
+import show from './show.ts';
 
 class TestClass {}
 
@@ -78,8 +79,8 @@ const cases: [Reflect, string][] = [
 
 for (const [T, expected] of cases) {
   const s = show(T);
-  it(s, () => {
-    expect(s).toBe(expected);
-    expect(T.toString()).toBe(`Runtype<${s}>`);
+  Deno.test(s, () => {
+    assertEquals(s, expected);
+    assertEquals(T.toString(), `Runtype<${s}>`);
   });
 }

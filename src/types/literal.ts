@@ -1,4 +1,4 @@
-import { Runtype, create } from '../runtype';
+import { Runtype, create } from "../runtype.ts";
 
 /**
  * The super type of all literal types.
@@ -6,7 +6,7 @@ import { Runtype, create } from '../runtype';
 export type LiteralBase = undefined | null | boolean | number | string;
 
 export interface Literal<A extends LiteralBase> extends Runtype<A> {
-  tag: 'literal';
+  tag: "literal";
   value: A;
 }
 
@@ -22,14 +22,14 @@ function literal(value: unknown) {
  */
 export function Literal<A extends LiteralBase>(valueBase: A): Literal<A> {
   return create<Literal<A>>(
-    value =>
-      value === valueBase
-        ? { success: true, value }
-        : {
-            success: false,
-            message: `Expected literal '${literal(valueBase)}', but was '${literal(value)}'`,
-          },
-    { tag: 'literal', value: valueBase },
+    (value) =>
+      value === valueBase ? { success: true, value } : {
+        success: false,
+        message: `Expected literal '${literal(valueBase)}', but was '${
+          literal(value)
+        }'`,
+      },
+    { tag: "literal", value: valueBase },
   );
 }
 

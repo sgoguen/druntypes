@@ -1,5 +1,5 @@
-import { Runtype } from './index';
-import { ValidationError } from './errors';
+import { Runtype } from "./index.ts";
+import { ValidationError } from "./errors.ts";
 
 export interface AsyncContract0<Z> {
   enforce(f: () => Promise<Z>): () => Promise<Z>;
@@ -14,11 +14,15 @@ export interface AsyncContract2<A, B, Z> {
 }
 
 export interface AsyncContract3<A, B, C, Z> {
-  enforce(f: (a: A, b: B, c: C) => Promise<Z>): (a: A, b: B, c: C) => Promise<Z>;
+  enforce(
+    f: (a: A, b: B, c: C) => Promise<Z>,
+  ): (a: A, b: B, c: C) => Promise<Z>;
 }
 
 export interface AsyncContract4<A, B, C, D, Z> {
-  enforce(f: (a: A, b: B, c: C, d: D) => Promise<Z>): (a: A, b: B, c: C, d: D) => Promise<Z>;
+  enforce(
+    f: (a: A, b: B, c: C, d: D) => Promise<Z>,
+  ): (a: A, b: B, c: C, d: D) => Promise<Z>;
 }
 
 export interface AsyncContract5<A, B, C, D, E, Z> {
@@ -53,7 +57,18 @@ export interface AsyncContract9<A, B, C, D, E, F, G, H, I, Z> {
 
 export interface AsyncContract10<A, B, C, D, E, F, G, H, I, J, Z> {
   enforce(
-    f: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => Promise<Z>,
+    f: (
+      a: A,
+      b: B,
+      c: C,
+      d: D,
+      e: E,
+      f: F,
+      g: G,
+      h: H,
+      i: I,
+      j: J,
+    ) => Promise<Z>,
   ): (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => Promise<Z>;
 }
 
@@ -61,7 +76,10 @@ export interface AsyncContract10<A, B, C, D, E, F, G, H, I, J, Z> {
  * Create a function contract.
  */
 export function AsyncContract<Z>(Z: Runtype<Z>): AsyncContract0<Z>;
-export function AsyncContract<A, Z>(A: Runtype<A>, Z: Runtype<Z>): AsyncContract1<A, Z>;
+export function AsyncContract<A, Z>(
+  A: Runtype<A>,
+  Z: Runtype<Z>,
+): AsyncContract1<A, Z>;
 export function AsyncContract<A, B, Z>(
   A: Runtype<A>,
   B: Runtype<B>,
@@ -148,18 +166,21 @@ export function AsyncContract(...runtypes: Runtype[]) {
   const argTypes = runtypes.slice(0, lastIndex);
   const returnType = runtypes[lastIndex];
   return {
-    enforce: (f: (...args: any[]) => any) => (...args: any[]) => {
-      if (args.length < argTypes.length)
-        throw new ValidationError(
-          `Expected ${argTypes.length} arguments but only received ${args.length}`,
-        );
-      for (let i = 0; i < argTypes.length; i++) argTypes[i].check(args[i]);
-      const returnedPromise = f(...args);
-      if (!(returnedPromise instanceof Promise))
-        throw new ValidationError(
-          `Expected function to return a promise, but instead got ${returnedPromise}`,
-        );
-      return returnedPromise.then(returnType.check);
-    },
+    enforce: (f: (...args: any[]) => any) =>
+      (...args: any[]) => {
+        if (args.length < argTypes.length) {
+          throw new ValidationError(
+            `Expected ${argTypes.length} arguments but only received ${args.length}`,
+          );
+        }
+        for (let i = 0; i < argTypes.length; i++) argTypes[i].check(args[i]);
+        const returnedPromise = f(...args);
+        if (!(returnedPromise instanceof Promise)) {
+          throw new ValidationError(
+            `Expected function to return a promise, but instead got ${returnedPromise}`,
+          );
+        }
+        return returnedPromise.then(returnType.check);
+      },
   };
 }

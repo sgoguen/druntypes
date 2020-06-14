@@ -1,35 +1,41 @@
-import { Runtype as Rt, Static, create, innerValidate } from '../runtype';
-import show from '../show';
+import { Runtype as Rt, Static, create, innerValidate } from "../runtype.ts";
+import show from "../show.ts";
 
 export interface Union1<A extends Rt> extends Rt<Static<A>> {
-  tag: 'union';
+  tag: "union";
   alternatives: [A];
   match: Match1<A>;
 }
 
-export interface Union2<A extends Rt, B extends Rt> extends Rt<Static<A> | Static<B>> {
-  tag: 'union';
+export interface Union2<A extends Rt, B extends Rt>
+  extends Rt<Static<A> | Static<B>> {
+  tag: "union";
   alternatives: [A, B];
   match: Match2<A, B>;
 }
 
 export interface Union3<A extends Rt, B extends Rt, C extends Rt>
   extends Rt<Static<A> | Static<B> | Static<C>> {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C];
   match: Match3<A, B, C>;
 }
 
 export interface Union4<A extends Rt, B extends Rt, C extends Rt, D extends Rt>
   extends Rt<Static<A> | Static<B> | Static<C> | Static<D>> {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D];
   match: Match4<A, B, C, D>;
 }
 
-export interface Union5<A extends Rt, B extends Rt, C extends Rt, D extends Rt, E extends Rt>
-  extends Rt<Static<A> | Static<B> | Static<C> | Static<D> | Static<E>> {
-  tag: 'union';
+export interface Union5<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+> extends Rt<Static<A> | Static<B> | Static<C> | Static<D> | Static<E>> {
+  tag: "union";
   alternatives: [A, B, C, D, E];
   match: Match5<A, B, C, D, E>;
 }
@@ -40,9 +46,10 @@ export interface Union6<
   C extends Rt,
   D extends Rt,
   E extends Rt,
-  F extends Rt
-> extends Rt<Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F>> {
-  tag: 'union';
+  F extends Rt,
+> extends
+  Rt<Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F>> {
+  tag: "union";
   alternatives: [A, B, C, D, E, F];
   match: Match6<A, B, C, D, E, F>;
 }
@@ -54,9 +61,18 @@ export interface Union7<
   D extends Rt,
   E extends Rt,
   F extends Rt,
-  G extends Rt
-> extends Rt<Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F> | Static<G>> {
-  tag: 'union';
+  G extends Rt,
+> extends
+  Rt<
+    | Static<A>
+    | Static<B>
+    | Static<C>
+    | Static<D>
+    | Static<E>
+    | Static<F>
+    | Static<G>
+  > {
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G];
   match: Match7<A, B, C, D, E, F, G>;
 }
@@ -69,12 +85,19 @@ export interface Union8<
   E extends Rt,
   F extends Rt,
   G extends Rt,
-  H extends Rt
->
-  extends Rt<
-    Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F> | Static<G> | Static<H>
+  H extends Rt,
+> extends
+  Rt<
+    | Static<A>
+    | Static<B>
+    | Static<C>
+    | Static<D>
+    | Static<E>
+    | Static<F>
+    | Static<G>
+    | Static<H>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H];
   match: Match8<A, B, C, D, E, F, G, H>;
 }
@@ -88,9 +111,9 @@ export interface Union9<
   F extends Rt,
   G extends Rt,
   H extends Rt,
-  I extends Rt
->
-  extends Rt<
+  I extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -101,7 +124,7 @@ export interface Union9<
     | Static<H>
     | Static<I>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I];
   match: Match9<A, B, C, D, E, F, G, H, I>;
 }
@@ -116,9 +139,9 @@ export interface Union10<
   G extends Rt,
   H extends Rt,
   I extends Rt,
-  J extends Rt
->
-  extends Rt<
+  J extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -130,7 +153,7 @@ export interface Union10<
     | Static<I>
     | Static<J>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J];
   match: Match10<A, B, C, D, E, F, G, H, I, J>;
 }
@@ -146,9 +169,9 @@ export interface Union11<
   H extends Rt,
   I extends Rt,
   J extends Rt,
-  K extends Rt
->
-  extends Rt<
+  K extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -161,7 +184,7 @@ export interface Union11<
     | Static<J>
     | Static<K>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K];
   match: Match11<A, B, C, D, E, F, G, H, I, J, K>;
 }
@@ -178,9 +201,9 @@ export interface Union12<
   I extends Rt,
   J extends Rt,
   K extends Rt,
-  L extends Rt
->
-  extends Rt<
+  L extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -194,7 +217,7 @@ export interface Union12<
     | Static<K>
     | Static<L>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L];
   match: Match12<A, B, C, D, E, F, G, H, I, J, K, L>;
 }
@@ -212,9 +235,9 @@ export interface Union13<
   J extends Rt,
   K extends Rt,
   L extends Rt,
-  M extends Rt
->
-  extends Rt<
+  M extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -229,7 +252,7 @@ export interface Union13<
     | Static<L>
     | Static<M>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M];
   match: Match13<A, B, C, D, E, F, G, H, I, J, K, L, M>;
 }
@@ -248,9 +271,9 @@ export interface Union14<
   K extends Rt,
   L extends Rt,
   M extends Rt,
-  N extends Rt
->
-  extends Rt<
+  N extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -266,7 +289,7 @@ export interface Union14<
     | Static<M>
     | Static<N>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N];
   match: Match14<A, B, C, D, E, F, G, H, I, J, K, L, M, N>;
 }
@@ -286,9 +309,9 @@ export interface Union15<
   L extends Rt,
   M extends Rt,
   N extends Rt,
-  O extends Rt
->
-  extends Rt<
+  O extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -305,7 +328,7 @@ export interface Union15<
     | Static<N>
     | Static<O>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O];
   match: Match15<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>;
 }
@@ -326,9 +349,9 @@ export interface Union16<
   M extends Rt,
   N extends Rt,
   O extends Rt,
-  P extends Rt
->
-  extends Rt<
+  P extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -346,7 +369,7 @@ export interface Union16<
     | Static<O>
     | Static<P>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P];
   match: Match16<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>;
 }
@@ -368,9 +391,9 @@ export interface Union17<
   N extends Rt,
   O extends Rt,
   P extends Rt,
-  Q extends Rt
->
-  extends Rt<
+  Q extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -389,7 +412,7 @@ export interface Union17<
     | Static<P>
     | Static<Q>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q];
   match: Match17<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>;
 }
@@ -412,9 +435,9 @@ export interface Union18<
   O extends Rt,
   P extends Rt,
   Q extends Rt,
-  R extends Rt
->
-  extends Rt<
+  R extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -434,7 +457,7 @@ export interface Union18<
     | Static<Q>
     | Static<R>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R];
   match: Match18<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>;
 }
@@ -458,9 +481,9 @@ export interface Union19<
   P extends Rt,
   Q extends Rt,
   R extends Rt,
-  S extends Rt
->
-  extends Rt<
+  S extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -481,7 +504,7 @@ export interface Union19<
     | Static<R>
     | Static<S>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S];
   match: Match19<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>;
 }
@@ -506,9 +529,9 @@ export interface Union20<
   Q extends Rt,
   R extends Rt,
   S extends Rt,
-  T extends Rt
->
-  extends Rt<
+  T extends Rt,
+> extends
+  Rt<
     | Static<A>
     | Static<B>
     | Static<C>
@@ -530,7 +553,7 @@ export interface Union20<
     | Static<S>
     | Static<T>
   > {
-  tag: 'union';
+  tag: "union";
   alternatives: [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T];
   match: Match20<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>;
 }
@@ -540,14 +563,24 @@ export interface Union20<
  */
 export function Union<A extends Rt>(A: A): Union1<A>;
 export function Union<A extends Rt, B extends Rt>(A: A, B: B): Union2<A, B>;
-export function Union<A extends Rt, B extends Rt, C extends Rt>(A: A, B: B, C: C): Union3<A, B, C>;
+export function Union<A extends Rt, B extends Rt, C extends Rt>(
+  A: A,
+  B: B,
+  C: C,
+): Union3<A, B, C>;
 export function Union<A extends Rt, B extends Rt, C extends Rt, D extends Rt>(
   A: A,
   B: B,
   C: C,
   D: D,
 ): Union4<A, B, C, D>;
-export function Union<A extends Rt, B extends Rt, C extends Rt, D extends Rt, E extends Rt>(
+export function Union<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+>(
   A: A,
   B: B,
   C: C,
@@ -560,7 +593,7 @@ export function Union<
   C extends Rt,
   D extends Rt,
   E extends Rt,
-  F extends Rt
+  F extends Rt,
 >(A: A, B: B, C: C, D: D, E: E, F: F): Union6<A, B, C, D, E, F>;
 export function Union<
   A extends Rt,
@@ -569,7 +602,7 @@ export function Union<
   D extends Rt,
   E extends Rt,
   F extends Rt,
-  G extends Rt
+  G extends Rt,
 >(A: A, B: B, C: C, D: D, E: E, F: F, G: G): Union7<A, B, C, D, E, F, G>;
 export function Union<
   A extends Rt,
@@ -579,19 +612,17 @@ export function Union<
   E extends Rt,
   F extends Rt,
   G extends Rt,
-  H extends Rt
->(A: A, B: B, C: C, D: D, E: E, F: F, G: G, H: H): Union8<A, B, C, D, E, F, G, H>;
-export function Union<
-  A extends Rt,
-  B extends Rt,
-  C extends Rt,
-  D extends Rt,
-  E extends Rt,
-  F extends Rt,
-  G extends Rt,
   H extends Rt,
-  I extends Rt
->(A: A, B: B, C: C, D: D, E: E, F: F, G: G, H: H, I: I): Union9<A, B, C, D, E, F, G, H, I>;
+>(
+  A: A,
+  B: B,
+  C: C,
+  D: D,
+  E: E,
+  F: F,
+  G: G,
+  H: H,
+): Union8<A, B, C, D, E, F, G, H>;
 export function Union<
   A extends Rt,
   B extends Rt,
@@ -602,7 +633,28 @@ export function Union<
   G extends Rt,
   H extends Rt,
   I extends Rt,
-  J extends Rt
+>(
+  A: A,
+  B: B,
+  C: C,
+  D: D,
+  E: E,
+  F: F,
+  G: G,
+  H: H,
+  I: I,
+): Union9<A, B, C, D, E, F, G, H, I>;
+export function Union<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+  F extends Rt,
+  G extends Rt,
+  H extends Rt,
+  I extends Rt,
+  J extends Rt,
 >(
   A: A,
   B: B,
@@ -626,7 +678,7 @@ export function Union<
   H extends Rt,
   I extends Rt,
   J extends Rt,
-  K extends Rt
+  K extends Rt,
 >(
   A: A,
   B: B,
@@ -652,7 +704,7 @@ export function Union<
   I extends Rt,
   J extends Rt,
   K extends Rt,
-  L extends Rt
+  L extends Rt,
 >(
   A: A,
   B: B,
@@ -680,7 +732,7 @@ export function Union<
   J extends Rt,
   K extends Rt,
   L extends Rt,
-  M extends Rt
+  M extends Rt,
 >(
   A: A,
   B: B,
@@ -710,7 +762,7 @@ export function Union<
   K extends Rt,
   L extends Rt,
   M extends Rt,
-  N extends Rt
+  N extends Rt,
 >(
   A: A,
   B: B,
@@ -742,7 +794,7 @@ export function Union<
   L extends Rt,
   M extends Rt,
   N extends Rt,
-  O extends Rt
+  O extends Rt,
 >(
   A: A,
   B: B,
@@ -776,7 +828,7 @@ export function Union<
   M extends Rt,
   N extends Rt,
   O extends Rt,
-  P extends Rt
+  P extends Rt,
 >(
   A: A,
   B: B,
@@ -812,7 +864,7 @@ export function Union<
   N extends Rt,
   O extends Rt,
   P extends Rt,
-  Q extends Rt
+  Q extends Rt,
 >(
   A: A,
   B: B,
@@ -850,7 +902,7 @@ export function Union<
   O extends Rt,
   P extends Rt,
   Q extends Rt,
-  R extends Rt
+  R extends Rt,
 >(
   A: A,
   B: B,
@@ -890,7 +942,7 @@ export function Union<
   P extends Rt,
   Q extends Rt,
   R extends Rt,
-  S extends Rt
+  S extends Rt,
 >(
   A: A,
   B: B,
@@ -932,7 +984,7 @@ export function Union<
   Q extends Rt,
   R extends Rt,
   S extends Rt,
-  T extends Rt
+  T extends Rt,
 >(
   A: A,
   B: B,
@@ -956,13 +1008,14 @@ export function Union<
   T: T,
 ): Union20<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>;
 export function Union(...alternatives: Rt[]): any {
-  const match = (...cases: any[]) => (x: any) => {
-    for (let i = 0; i < alternatives.length; i++) {
-      if (alternatives[i].guard(x)) {
-        return cases[i](x);
+  const match = (...cases: any[]) =>
+    (x: any) => {
+      for (let i = 0; i < alternatives.length; i++) {
+        if (alternatives[i].guard(x)) {
+          return cases[i](x);
+        }
       }
-    }
-  };
+    };
 
   return create(
     (value, visited) => {
@@ -972,13 +1025,15 @@ export function Union(...alternatives: Rt[]): any {
         }
       }
 
-      const a = create<any>(value as never, { tag: 'union', alternatives });
+      const a = create<any>(value as never, { tag: "union", alternatives });
       return {
         success: false,
-        message: `Expected ${show(a)}, but was ${value === null ? value : typeof value}`,
+        message: `Expected ${show(a)}, but was ${
+          value === null ? value : typeof value
+        }`,
       };
     },
-    { tag: 'union', alternatives, match },
+    { tag: "union", alternatives, match },
   );
 }
 
@@ -991,11 +1046,33 @@ export interface Match2<A extends Rt, B extends Rt> {
 export interface Match3<A extends Rt, B extends Rt, C extends Rt> {
   <Z>(a: Case<A, Z>, b: Case<B, Z>, c: Case<C, Z>): Matcher3<A, B, C, Z>;
 }
-export interface Match4<A extends Rt, B extends Rt, C extends Rt, D extends Rt> {
-  <Z>(a: Case<A, Z>, b: Case<B, Z>, c: Case<C, Z>, d: Case<D, Z>): Matcher4<A, B, C, D, Z>;
+export interface Match4<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+> {
+  <Z>(
+    a: Case<A, Z>,
+    b: Case<B, Z>,
+    c: Case<C, Z>,
+    d: Case<D, Z>,
+  ): Matcher4<A, B, C, D, Z>;
 }
-export interface Match5<A extends Rt, B extends Rt, C extends Rt, D extends Rt, E extends Rt> {
-  <Z>(a: Case<A, Z>, b: Case<B, Z>, c: Case<C, Z>, d: Case<D, Z>, e: Case<E, Z>): Matcher5<
+export interface Match5<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+> {
+  <Z>(
+    a: Case<A, Z>,
+    b: Case<B, Z>,
+    c: Case<C, Z>,
+    d: Case<D, Z>,
+    e: Case<E, Z>,
+  ): Matcher5<
     A,
     B,
     C,
@@ -1010,7 +1087,7 @@ export interface Match6<
   C extends Rt,
   D extends Rt,
   E extends Rt,
-  F extends Rt
+  F extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1028,7 +1105,7 @@ export interface Match7<
   D extends Rt,
   E extends Rt,
   F extends Rt,
-  G extends Rt
+  G extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1048,7 +1125,7 @@ export interface Match8<
   E extends Rt,
   F extends Rt,
   G extends Rt,
-  H extends Rt
+  H extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1070,7 +1147,7 @@ export interface Match9<
   F extends Rt,
   G extends Rt,
   H extends Rt,
-  I extends Rt
+  I extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1094,7 +1171,7 @@ export interface Match10<
   G extends Rt,
   H extends Rt,
   I extends Rt,
-  J extends Rt
+  J extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1120,7 +1197,7 @@ export interface Match11<
   H extends Rt,
   I extends Rt,
   J extends Rt,
-  K extends Rt
+  K extends Rt,
 > {
   <Z>(
     a: Case<A, Z>,
@@ -1149,7 +1226,7 @@ export interface Match12<
   I extends Rt,
   J extends Rt,
   K extends Rt,
-  L extends Rt
+  L extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1180,7 +1257,7 @@ export interface Match13<
   J extends Rt,
   K extends Rt,
   L extends Rt,
-  M extends Rt
+  M extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1213,7 +1290,7 @@ export interface Match14<
   K extends Rt,
   L extends Rt,
   M extends Rt,
-  N extends Rt
+  N extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1248,7 +1325,7 @@ export interface Match15<
   L extends Rt,
   M extends Rt,
   N extends Rt,
-  O extends Rt
+  O extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1285,7 +1362,7 @@ export interface Match16<
   M extends Rt,
   N extends Rt,
   O extends Rt,
-  P extends Rt
+  P extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1324,7 +1401,7 @@ export interface Match17<
   N extends Rt,
   O extends Rt,
   P extends Rt,
-  Q extends Rt
+  Q extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1365,7 +1442,7 @@ export interface Match18<
   O extends Rt,
   P extends Rt,
   Q extends Rt,
-  R extends Rt
+  R extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1408,7 +1485,7 @@ export interface Match19<
   P extends Rt,
   Q extends Rt,
   R extends Rt,
-  S extends Rt
+  S extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1453,7 +1530,7 @@ export interface Match20<
   Q extends Rt,
   R extends Rt,
   S extends Rt,
-  T extends Rt
+  T extends Rt,
 > {
   <Z>(
     A: Case<A, Z>,
@@ -1482,14 +1559,29 @@ export interface Match20<
 export type Case<T extends Rt, Result> = (v: Static<T>) => Result;
 
 export type Matcher1<A extends Rt, Z> = (x: Static<A>) => Z;
-export type Matcher2<A extends Rt, B extends Rt, Z> = (x: Static<A> | Static<B>) => Z;
+export type Matcher2<A extends Rt, B extends Rt, Z> = (
+  x: Static<A> | Static<B>,
+) => Z;
 export type Matcher3<A extends Rt, B extends Rt, C extends Rt, Z> = (
   x: Static<A> | Static<B> | Static<C>,
 ) => Z;
-export type Matcher4<A extends Rt, B extends Rt, C extends Rt, D extends Rt, Z> = (
+export type Matcher4<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  Z,
+> = (
   x: Static<A> | Static<B> | Static<C> | Static<D>,
 ) => Z;
-export type Matcher5<A extends Rt, B extends Rt, C extends Rt, D extends Rt, E extends Rt, Z> = (
+export type Matcher5<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+  Z,
+> = (
   x: Static<A> | Static<B> | Static<C> | Static<D> | Static<E>,
 ) => Z;
 export type Matcher6<
@@ -1499,8 +1591,10 @@ export type Matcher6<
   D extends Rt,
   E extends Rt,
   F extends Rt,
-  Z
-> = (x: Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F>) => Z;
+  Z,
+> = (
+  x: Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F>,
+) => Z;
 export type Matcher7<
   A extends Rt,
   B extends Rt,
@@ -1509,8 +1603,17 @@ export type Matcher7<
   E extends Rt,
   F extends Rt,
   G extends Rt,
-  Z
-> = (x: Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F> | Static<G>) => Z;
+  Z,
+> = (
+  x:
+    | Static<A>
+    | Static<B>
+    | Static<C>
+    | Static<D>
+    | Static<E>
+    | Static<F>
+    | Static<G>,
+) => Z;
 export type Matcher8<
   A extends Rt,
   B extends Rt,
@@ -1520,9 +1623,17 @@ export type Matcher8<
   F extends Rt,
   G extends Rt,
   H extends Rt,
-  Z
+  Z,
 > = (
-  x: Static<A> | Static<B> | Static<C> | Static<D> | Static<E> | Static<F> | Static<G> | Static<H>,
+  x:
+    | Static<A>
+    | Static<B>
+    | Static<C>
+    | Static<D>
+    | Static<E>
+    | Static<F>
+    | Static<G>
+    | Static<H>,
 ) => Z;
 export type Matcher9<
   A extends Rt,
@@ -1534,7 +1645,7 @@ export type Matcher9<
   G extends Rt,
   H extends Rt,
   I extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1558,7 +1669,7 @@ export type Matcher10<
   H extends Rt,
   I extends Rt,
   J extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1584,7 +1695,7 @@ export type Matcher11<
   I extends Rt,
   J extends Rt,
   K extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1612,7 +1723,7 @@ export type Matcher12<
   J extends Rt,
   K extends Rt,
   L extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1642,7 +1753,7 @@ export type Matcher13<
   K extends Rt,
   L extends Rt,
   M extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1674,7 +1785,7 @@ export type Matcher14<
   L extends Rt,
   M extends Rt,
   N extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1708,7 +1819,7 @@ export type Matcher15<
   M extends Rt,
   N extends Rt,
   O extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1744,7 +1855,7 @@ export type Matcher16<
   N extends Rt,
   O extends Rt,
   P extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1782,7 +1893,7 @@ export type Matcher17<
   O extends Rt,
   P extends Rt,
   Q extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1822,7 +1933,7 @@ export type Matcher18<
   P extends Rt,
   Q extends Rt,
   R extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1864,7 +1975,7 @@ export type Matcher19<
   Q extends Rt,
   R extends Rt,
   S extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>
@@ -1908,7 +2019,7 @@ export type Matcher20<
   R extends Rt,
   S extends Rt,
   T extends Rt,
-  Z
+  Z,
 > = (
   x:
     | Static<A>

@@ -11,7 +11,7 @@ import {
   Matcher3,
   Matcher1,
   Matcher2,
-} from '.';
+} from "./index.ts";
 
 export function match<A extends Rt, Z>(a: PairCase<A, Z>): Matcher1<A, Z>;
 export function match<A extends Rt, B extends Rt, Z>(
@@ -23,13 +23,26 @@ export function match<A extends Rt, B extends Rt, C extends Rt, Z>(
   b: PairCase<B, Z>,
   c: PairCase<C, Z>,
 ): Matcher3<A, B, C, Z>;
-export function match<A extends Rt, B extends Rt, C extends Rt, D extends Rt, Z>(
+export function match<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  Z,
+>(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
   c: PairCase<C, Z>,
   d: PairCase<D, Z>,
 ): Matcher4<A, B, C, D, Z>;
-export function match<A extends Rt, B extends Rt, C extends Rt, D extends Rt, E extends Rt, Z>(
+export function match<
+  A extends Rt,
+  B extends Rt,
+  C extends Rt,
+  D extends Rt,
+  E extends Rt,
+  Z,
+>(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
   c: PairCase<C, Z>,
@@ -43,7 +56,7 @@ export function match<
   D extends Rt,
   E extends Rt,
   F extends Rt,
-  Z
+  Z,
 >(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
@@ -60,7 +73,7 @@ export function match<
   E extends Rt,
   F extends Rt,
   G extends Rt,
-  Z
+  Z,
 >(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
@@ -79,7 +92,7 @@ export function match<
   F extends Rt,
   G extends Rt,
   H extends Rt,
-  Z
+  Z,
 >(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
@@ -100,7 +113,7 @@ export function match<
   G extends Rt,
   H extends Rt,
   I extends Rt,
-  Z
+  Z,
 >(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
@@ -123,7 +136,7 @@ export function match<
   H extends Rt,
   I extends Rt,
   J extends Rt,
-  Z
+  Z,
 >(
   a: PairCase<A, Z>,
   b: PairCase<B, Z>,
@@ -137,9 +150,9 @@ export function match<
   j: PairCase<J, Z>,
 ): Matcher10<A, B, C, D, E, F, G, H, I, J, Z>;
 export function match<Z>(...cases: PairCase<any, Z>[]): (x: any) => Z {
-  return x => {
+  return (x) => {
     for (const [T, f] of cases) if (T.guard(x)) return f(x);
-    throw new Error('No alternatives were matched');
+    throw new Error("No alternatives were matched");
   };
 }
 

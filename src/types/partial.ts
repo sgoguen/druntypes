@@ -1,10 +1,10 @@
-import { Runtype, Static, create, innerValidate } from '../runtype';
-import { hasKey } from '../util';
-import show from '../show';
+import { Runtype, Static, create, innerValidate } from "../runtype.ts";
+import { hasKey } from "../util.ts";
+import show from "../show.ts";
 
 export interface Part<O extends { [_: string]: Runtype }>
   extends Runtype<{ [K in keyof O]?: Static<O[K]> }> {
-  tag: 'partial';
+  tag: "partial";
   fields: O;
 }
 
@@ -15,7 +15,10 @@ export function Part<O extends { [_: string]: Runtype }>(fields: O) {
   return create<Part<O>>(
     (x, visited) => {
       if (x === null || x === undefined) {
-        const a = create<any>(_x => ({ success: true, value: _x }), { tag: 'partial', fields });
+        const a = create<any>(
+          (_x) => ({ success: true, value: _x }),
+          { tag: "partial", fields },
+        );
         return { success: false, message: `Expected ${show(a)}, but was ${x}` };
       }
 
@@ -34,7 +37,7 @@ export function Part<O extends { [_: string]: Runtype }>(fields: O) {
 
       return { success: true, value: x };
     },
-    { tag: 'partial', fields },
+    { tag: "partial", fields },
   );
 }
 

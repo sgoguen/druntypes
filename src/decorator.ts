@@ -1,5 +1,5 @@
-import { Runtype } from './runtype';
-import { ValidationError } from './errors';
+import { Runtype } from "./runtype.ts";
+import { ValidationError } from "./errors.ts";
 
 type PropKey = string | symbol;
 const prototypes = new WeakMap<any, Map<PropKey, number[]>>();
@@ -12,7 +12,11 @@ const prototypes = new WeakMap<any, Map<PropKey, number[]>>();
  * method(@check p1: Static1, p2: number, @check p3: Static3) { ... }
  * ```
  */
-export function check(target: any, propertyKey: PropKey, parameterIndex: number) {
+export function check(
+  target: any,
+  propertyKey: PropKey,
+  parameterIndex: number,
+) {
   const prototype = prototypes.get(target) || new Map();
   prototypes.set(target, prototype);
 
@@ -22,7 +26,11 @@ export function check(target: any, propertyKey: PropKey, parameterIndex: number)
   validParameterIndices.push(parameterIndex);
 }
 
-function getValidParameterIndices(target: any, propertyKey: PropKey, runtypeCount: number) {
+function getValidParameterIndices(
+  target: any,
+  propertyKey: PropKey,
+  runtypeCount: number,
+) {
   const prototype = prototypes.get(target);
   const validParameterIndices = prototype && prototype.get(propertyKey);
   if (validParameterIndices) {
@@ -59,23 +67,38 @@ function getValidParameterIndices(target: any, propertyKey: PropKey, runtypeCoun
  */
 export function checked(...runtypes: Runtype[]) {
   if (runtypes.length === 0) {
-    throw new Error('No runtype provided to `@checked`. Please remove the decorator.');
+    throw new Error(
+      "No runtype provided to `@checked`. Please remove the decorator.",
+    );
   }
-  return (target: any, propertyKey: PropKey, descriptor: PropertyDescriptor) => {
+  return (
+    target: any,
+    propertyKey: PropKey,
+    descriptor: PropertyDescriptor,
+  ) => {
     const method: Function = descriptor.value!;
-    const methodId =
-      (target.name || target.constructor.name + '.prototype') +
-      (typeof propertyKey === 'string' ? `["${propertyKey}"]` : `[${String(propertyKey)}]`);
+    const methodId = (target.name || target.constructor.name + ".prototype") +
+      (typeof propertyKey === "string"
+        ? `["${propertyKey}"]`
+        : `[${String(propertyKey)}]`);
 
-    const validParameterIndices = getValidParameterIndices(target, propertyKey, runtypes.length);
+    const validParameterIndices = getValidParameterIndices(
+      target,
+      propertyKey,
+      runtypes.length,
+    );
     if (validParameterIndices.length !== runtypes.length) {
-      throw new Error('Number of `@checked` runtypes and @check parameters not matched.');
+      throw new Error(
+        "Number of `@checked` runtypes and @check parameters not matched.",
+      );
     }
     if (validParameterIndices.length > method.length) {
-      throw new Error('Number of `@checked` runtypes exceeds actual parameter length.');
+      throw new Error(
+        "Number of `@checked` runtypes exceeds actual parameter length.",
+      );
     }
 
-    descriptor.value = function(...args: any[]) {
+    descriptor.value = function (...args: any[]) {
       runtypes.forEach((type, typeIndex) => {
         const parameterIndex = validParameterIndices[typeIndex];
         const validated = type.validate(args[parameterIndex]);

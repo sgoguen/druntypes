@@ -1,4 +1,4 @@
-import { Runtype, create } from '../runtype';
+import { Runtype, create } from "../runtype.ts";
 
 /**
  * Construct a possibly-recursive Runtype.
@@ -6,7 +6,7 @@ import { Runtype, create } from '../runtype';
 export function Lazy<A extends Runtype>(delayed: () => A) {
   const data: any = {
     get tag() {
-      return (getWrapped() as any)['tag'];
+      return (getWrapped() as any)["tag"];
     },
   };
 
@@ -14,12 +14,12 @@ export function Lazy<A extends Runtype>(delayed: () => A) {
   function getWrapped() {
     if (!cached) {
       cached = delayed();
-      for (const k in cached) if (k !== 'tag') data[k] = cached[k];
+      for (const k in cached) if (k !== "tag") data[k] = cached[k];
     }
     return cached;
   }
 
-  return create<A>(x => {
+  return create<A>((x) => {
     return getWrapped().validate(x);
   }, data);
 }

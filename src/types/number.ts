@@ -1,19 +1,19 @@
-import { Runtype, create } from '../runtype';
+import { Runtype, create } from "../runtype.ts";
 
 export interface Number extends Runtype<number> {
-  tag: 'number';
+  tag: "number";
 }
 
 /**
  * Validates that a value is a number.
  */
 export const Number = create<Number>(
-  value =>
-    typeof value === 'number'
-      ? { success: true, value }
-      : {
-          success: false,
-          message: `Expected number, but was ${value === null ? value : typeof value}`,
-        },
-  { tag: 'number' },
+  (value) =>
+    typeof value === "number" ? { success: true, value } : {
+      success: false,
+      message: `Expected number, but was ${
+        value === null ? value : typeof value
+      }`,
+    },
+  { tag: "number" },
 );
